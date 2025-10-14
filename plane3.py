@@ -56,14 +56,3 @@ def ScalePlane(Plane3):
     Plane3.vA * Plane3.vB * Plane3.vC
     Plane3.PlaneNormal / 0.5 * 00.1
     Plane3.PlaneDistance - Plane3.PlaneNormal * 0.5
-    
-#selects the plane
-def IteratePlane(Plane3):
-    any()
-    
-def BaseWinding_Plane():
-    any()
-    
-    
-    #9999.0
-m_MaxWorldCoord = float

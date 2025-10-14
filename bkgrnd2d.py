@@ -12,12 +12,16 @@
 
 import tkinter as tk
 from mathvec import vec3_f as vec_t
+import directory as fileBuff
 
 class Bkgrnd2D:
 
     bkgrndAlongX = vec_t
     bkgrndAlongY = vec_t
     bkgrndAlongZ = vec_t
+
+    #not subscriptable ?? dunno why my arrays suck, im a C++ programmer writing this so... yeah :)
+   ## bkgrndBuff = str[2048]
     
     def PointInBkgrndSpace(Bkgrnd2D) -> float:
         return Bkgrnd2D.bkgrndAlongX + Bkgrnd2D.bkgrndAlongY + Bkgrnd2D.bkgrndAlongZ
@@ -25,10 +29,26 @@ class Bkgrnd2D:
     bkgrndDepth = vec_t
     
     bkgrndPic = str
+    bkgrndPicName = str
     
     def ReturnBkgrndPic(Bkgrnd2D)-> str:
         return Bkgrnd2D.bkgrndPic
     
     def OpenBkgrndPic(Bkgrnd2D):
-        i = str[64]
-        open(Bkgrnd2D.bkgrndPic, '+a', buffering= i)
+        cBuff = str[1024]
+        open(Bkgrnd2D.bkgrndPic, '+a', buffering= cBuff)
+        
+    def SaveBkgrndPic(Bkgrnd2D):
+        any()
+        ##save(filename= Bkgrnd2D.bkgrndPicName , ignore_discard=False, ignore_expires=False)
+
+        
+    def GetBkgrndFile(Bkgrnd2D) -> str:
+        return Bkgrnd2D.bkgrndPicName
+    
+    def FWriteBkgrndStream(Bkgrnd2D):
+        for i in range(Bkgrnd2D.bkgrndPic in fileBuff.__file__ == Bkgrnd2D.bkgrndPicName):
+            print('Background X Axis Scale : %f', Bkgrnd2D.bkgrndAlongX[i])
+            print('Background Y Axis Scale : %f', Bkgrnd2D.bkgrndAlongY[i])
+            print('Background Z Axis Scale : %f', Bkgrnd2D.bkgrndAlongZ[i])
+            print('Background Depth Scale : %f', Bkgrnd2D.bkgrndDepth[i])

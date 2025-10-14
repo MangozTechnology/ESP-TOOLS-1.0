@@ -16,7 +16,8 @@
 #                                  #
 ####################################
 
-import face as f
+import face as face_t
+import bsp as bsp_t
 
 #
 #   A brush is made of 6 faces
@@ -24,11 +25,15 @@ import face as f
 
 class Brush:
 
+    BrushNumberId = 0
     
     BrushVertPoints = 8   
     
     ##face count
     BrushSideCount = 6
+    
+    ##same as side count
+    BrushFace = face_t = [6]
     
     BrushEdges = 12
     
@@ -43,6 +48,7 @@ class Brush:
     
     
     bSelectBrush = bool
+    bBrushConstructed = bool
 
     ##brushvectors = f.p.v.vec3_f   | trash variable
 
@@ -58,5 +64,23 @@ class Brush:
             print("----Brush Is In Scale Mode----")
         return Brush.bScalable == True
 
-        def ConstructBrush():
-            any()
+    def ConstructBrush():
+        any()
+        
+    def Brush_AddToList(Brush):
+        if Brush.bBrushConstructed == True:
+            bsp_t.Bsp().BspBrushCount[Brush.BrushNumberId + 1]
+            
+    def Brush_Name(Brush)-> str:
+        cBuff = str[1024]
+        if Brush.bSelectBrush == True:
+            print('Brush %i selected', Brush.BrushNumberId)
+        return cBuff
+    
+    def BrushMake_Face(Brush):
+        for i in range(6):
+            Brush.BrushFace[i].insert(face_t.Face.ConstructFace(Face= Brush.BrushFace[i]))
+            face_t.Face = Brush.BrushFace[i] == Brush.BrushSideCount[i][Brush.BrushFace.count(+1)]
+            Brush.SetSides(Brush.BrushFace[i])
+            for bsp_tree in range(0):
+                bsp_t.Bsp.BspFaceCount == Brush.BrushFace.count(Brush.BrushSideCount[i] + 1)

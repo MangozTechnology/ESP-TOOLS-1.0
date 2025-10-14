@@ -13,6 +13,7 @@
 #do sum imports
 import stdafx as gp
 from tkinter import ttk
+from global_stream import Global
 
 g_pMainFrame = gp.GuiTable.MainWindow
 g_pMainFrame.title('ESP Editor - Version 1.0 ( Fall 2025 )')
@@ -257,6 +258,8 @@ g_pConstructionZoneMenu.add_command(label= 'Brush Construction')
 g_pMenuBar.add_cascade(label= 'Construction Zone', menu= g_pConstructionZoneMenu)
 
 print('---Menu working---')
+Global.GlobalOutputStream() == '---Menu Working---'##testing global stuff
+print('function : Global.GlobalOutputStream() == '', does not work nor print strings')
 print('---Application Running---')
 
 g_pMainFrame.mainloop()

@@ -9,17 +9,19 @@
 #   Use Of Code : This code is to write Software to control ESP32 MaxArm Robot, intended for, New Prairie High School
 #
 ####################################################################
-#app directory
 
-class AppFileDirectory():
-    FolderDirectory = str
-    FolderSize = int
-    FolderName = str
-    FolderOpened = bool
+from string import string
+import brush
+import face
+import plane3
 
-class File:
-    FileName = str
-    FileExtension = str
-    FileSize = int
-    FileOpened = bool
-    FileIcon = str
+class Map:
+    
+    Map_Name = str[64]
+    Map_Path = str[2048]
+    
+    brushes = brush.Brush()
+    faces = face.Face()
+    planes = plane3.Plane3()
+    
+    

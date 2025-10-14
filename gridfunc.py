@@ -12,6 +12,11 @@
 
 import tkinter as tk
 
+"""
+MAY NOT USE THIS FILE ANYMORE
+*UNCRUSTIFY*
+"""
+
 g_fGrid_width = int
 g_fGrid_height = int
 g_fGrid_interval = int
@@ -38,7 +43,7 @@ gridscale = float
 
 drag_grid = bool
 
-def DragGrid():
+def DragGrid()-> bool:
     drag_grid = True
 
 def IncrementGrid():

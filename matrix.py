@@ -10,24 +10,21 @@
 #
 ####################################################################
 
-"""_summary_
-Praise The Lord For My Code,
+from mathvec import vec3_f as vec3_t
 
-This file is for mouse bindings and other such as grid events, etc.
-"""
+##global matrix 4x4
+m4x4 = vec3_t = [16]
 
-MOUSE_BUTTON_MAJOR = 'Mouse Binding'
+x = float
+y = float
+z = float
 
-MB_LEFT = 0x10
-MB_RIGHT = 0x20
-MB_UP = 0x30
-MB_DOWN = 0x40
+def MatrixIdentity()-> float:
+    for i in range(16):
+        x[i] = m4x4[i][0], m4x4[i][1], m4x4[i][2], m4x4[i][3]
+        y[i] = m4x4[i][4], m4x4[i][5], m4x4[i][6], m4x4[i][7]
+        z[i] = m4x4[i][8], m4x4[i][9], m4x4[i][10], m4x4[i][11]
+    return x, y, z
 
-MB_LEFT_DRAG_CLICK = MB_LEFT + MB_DOWN + 0x300
 
-MOUSE_SCROLL_IN = 0x800
-MOUSE_SCROLL_OUT = 0x900
-
-class Binding():
-    def Bind(any):
-        return any
+    

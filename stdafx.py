@@ -67,11 +67,6 @@ def PrintGridViewType(m_pGridDummy):
         m_pGridDummy.create_text(25, 25, text= "XZ", font= ("Arial", 18), fill = "white")
     if m_pGridDummy == GuiTable.m_pYZWidget:
         m_pGridDummy.create_text(25, 25, text= "YZ", font= ("Arial", 18), fill = "white")
-    
-#mouse bindings
-MB_LEFTDRAG = 0x01
-MB_RGHTDRAG = 0x02
-
 
 """
 def SelectBrush(dummy_brush):
@@ -165,6 +160,8 @@ def CreateCubePreferencesDlg():
 #=========================
 #   Math Section
 
+#====================
+#this code should be done in the matrix.py file but this was started first
 XYZ = vector.vec3_f
 ThreeDimensionalSpace = XYZ = { 0.0, 0.0, 0.0 }
 
@@ -253,11 +250,5 @@ def DrawGlobalsWindow():
     
     widget.mainloop()
     
-    
-#============
-# reserve()
-def reserve(num):
-    for i in range(0):
-        setNum = set()
-        setNum.add(num)
+
     

@@ -9,17 +9,15 @@
 #   Use Of Code : This code is to write Software to control ESP32 MaxArm Robot, intended for, New Prairie High School
 #
 ####################################################################
-#app directory
 
-class AppFileDirectory():
-    FolderDirectory = str
-    FolderSize = int
-    FolderName = str
-    FolderOpened = bool
+"""
+This file has the global functions of the application
+"""
 
-class File:
-    FileName = str
-    FileExtension = str
-    FileSize = int
-    FileOpened = bool
-    FileIcon = str
+class Global:
+    
+    def GlobalOutputStream()-> str:
+        return print(str)
+    
+    def Global_InsertCommand(any):
+        any()

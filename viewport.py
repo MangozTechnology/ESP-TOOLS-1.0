@@ -19,9 +19,10 @@ import mathvec as vec_t
 class Viewport():
     bShowCrosshair = bool
 
-    x = vec_t.vec3_f = { 0.0, 0.0, 0.0 }
-    y = vec_t.vec3_f = { 0.0, 0.0, 0.0 }
-    z = vec_t.vec3_f = { 0.0, 0.0, 0.0 }
+   ### moved to camera window code
+   ### x = vec_t.vec3_f = { 0.0, 0.0, 0.0 }
+   ### y = vec_t.vec3_f = { 0.0, 0.0, 0.0 }
+   ### z = vec_t.vec3_f = { 0.0, 0.0, 0.0 }
 
     ViewMode = int
 
@@ -30,6 +31,9 @@ class Viewport():
     Cull = int
     Fill = int
 
+    """
+    DONT USE
+    """
     def UpdatePanel(ClientViewport):
         for i in range(ClientViewport):
             Viewport.ViewMode
