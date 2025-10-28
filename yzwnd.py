@@ -10,9 +10,9 @@
 #
 ####################################################################
 
-import stdafx as xy_t
+import stdafx as yz_t
 
-class XYWnd():
+class YZWnd():
     
     xCur = int
     yCur = int
@@ -28,34 +28,32 @@ class XYWnd():
     
     bDragged = bool
     
-    mXYMatrix = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ,0.0 ,0.0]
+    mYZMatrix = float
     
-    xyvec3_t = xy_t.vector.vec3_f
+    yzvec3_t = yz_t.vector.vec3_f
     viewtype = float
     
-    xy_plane = xy_t.p.Plane()
-    xy_face = xy_t.f.Face()
-    xy_brush = xy_t.primit.Brush()
+    yz_plane = yz_t.p.Plane()
+    yz_face = yz_t.f.Face()
+    yz_brush = yz_t.primit.Brush()
     
-    def BrushDrawXY(xy_brush):
+    def BrushDrawYZ(yz_brush):
         any()
         
     def NewBrush_Drag():
         any()
         
-    def DrawESPXY():
+    def DrawESPYZ():
         any()
         
-    def DragXYDir_OnMouse():
+    def DragYZDir_OnMouse():
         any()
         
-    def XYZoomIn():
+    def YZZoomIn():
         any()
         
-    def XYZoomOut():
+    def YZZoomOut():
         any()
         
-    def XYSetWnd(Window):
+    def YZSetWnd(Window):
         set().add(Window)
-        
-    

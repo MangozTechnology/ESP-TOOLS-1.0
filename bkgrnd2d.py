@@ -13,6 +13,7 @@
 import tkinter as tk
 from mathvec import vec3_f as vec_t
 import directory as fileBuff
+import tkinter.filedialog as filepage
 
 class Bkgrnd2D:
 
@@ -52,3 +53,21 @@ class Bkgrnd2D:
             print('Background Y Axis Scale : %f', Bkgrnd2D.bkgrndAlongY[i])
             print('Background Z Axis Scale : %f', Bkgrnd2D.bkgrndAlongZ[i])
             print('Background Depth Scale : %f', Bkgrnd2D.bkgrndDepth[i])
+            
+            
+class BkgrndPage:
+    
+    def PaintNewPage():
+        page = tk.Tk()
+        page.configure(width= 450, height= 350, background= 'Gray26')
+        page.title('New Background File')
+        
+        dirlist = tk.Listbox(page, width= 75, height= 350, relief= 'solid', background= 'Gray26')
+        dirlist.pack(side= 'left')
+        
+        _pageFileDirectory = r"C:Downloads\ESMatic\backgrounds"
+        
+        _pageFileModule = filepage.Open()
+        _pageFileModule.show()
+        
+        page.mainloop()

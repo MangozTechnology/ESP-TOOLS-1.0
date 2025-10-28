@@ -28,7 +28,7 @@ from mathvec import vec3_f
 
 class Plane3:
     
-    Points = 3
+    Points = [0, 0, 0]
     
     vA = vec3_f
     vB = vec3_f

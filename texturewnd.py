@@ -10,14 +10,13 @@
 #
 ####################################################################
 
-"""
-This file has the global functions of the application
-"""
+import tkinter as tk
 
-class Global:
+def DrawTextureWindow():
+    Window = tk.Tk()
+    Window.title('Texture Window')
     
-    def GlobalOutputStream(__cout):
-        return print(__cout)
+    TexView = tk.Listbox(Window, bg= 'DarkGray', relief= 'sunken', width= Window.winfo_width(), height= Window.winfo_height())
+    TexView.pack(fill= 'both')
     
-    def Global_InsertCommand(any):
-        any()
+    Window.mainloop()

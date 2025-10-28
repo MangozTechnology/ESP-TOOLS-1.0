@@ -13,8 +13,4 @@
 #node.py
 
 class node():
-    i = int
-    #name
-    ndenqstr = str
-    nodecolor = float = [3]
-    nodeposition = float = [3]
+    nodecolor = [ 0.0, 0.0, 0.0]

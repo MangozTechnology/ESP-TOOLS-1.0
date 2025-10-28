@@ -24,7 +24,7 @@ class Plane():
 
     flip = invert
 
-    points = int = [3]
+    points = [0, 0, 0]
 
     vec_a = v.vec3_f
     vec_b = v.vec3_f

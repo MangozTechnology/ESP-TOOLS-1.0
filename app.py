@@ -14,9 +14,40 @@
 import stdafx as gp
 from tkinter import ttk
 from global_stream import Global
+from time import time
+from xywnd import XYWnd
+from xzwnd import XZWnd
+from yzwnd import YZWnd
+from matrix import MatrixIdentity
+from tkinter import PhotoImage
+from bkgrnd2d import BkgrndPage
+
+
+
+#g_pSplashScreen = gp.tk.Tk()
+#g_pSplashScreen.title('Splash Screen')
+#g_pSplashScreen.configure(width= 600, height= 600, background= 'AntiqueWhite')
+
+##g_pSplashImage = gp.tk.PhotoImage(name='SPLASH', master=g_pSplashScreen , format = 'PNG', file = 'app\esp_splash_logo' + '.png')
+
+#g_pSplashCanvas = gp.tk.Canvas(g_pSplashScreen, width= 600, height= 600, relief= 'sunken', bg= 'white', bd = 2)
+##g_pSplashCanvas.create_image(800, 300, image= g_pSplashImage)
+##g_pSplashCanvas.pack(fill = 'both')
+
+#def CallSplashTick():
+    ##if time == 2 == True:
+   # g_pSplashScreen.destroy()
+
+##=============================================================================================================     
+##call splash tick()-> True, we want to instantly destroy window, not gonna mess with timer variables
+##CallSplashTick()
+
+"""
+    *!SPLASH SCREEN INSTANTLY DESTROYS, NOT MESSING WITH TIMER, TO MUCH TIME WASTED, CANT GET TICK TIMER SET TO TWO SECONDS!*
+"""
 
 g_pMainFrame = gp.GuiTable.MainWindow
-g_pMainFrame.title('ESP Editor - Version 1.0 ( Fall 2025 )')
+g_pMainFrame.title('ESMatic - Version 1.0 ( Fall 2025 )')
 
 #=========================
 #   Global Widgets
@@ -81,7 +112,7 @@ g_pWindowMenu.add_command(label= 'Create Your Own Window', command= gp.CreateScr
 g_pMenuBar.add_cascade(label= 'Window Handling', menu= g_pWindowMenu)
 
 g_pTextureMenu = gp.tk.Menu(g_pMenuBar)
-g_pTextureMenu.add_command(label= 'Shader')
+g_pTextureMenu.add_command(label= 'Shader Window', command= gp.texwnd.DrawTextureWindow)
 g_pTextureMenu.add_separator()
 g_pTextureMenu.add_command(label= 'Clip Selected Brush')
 g_pMenuBar.add_cascade(label= 'Texture', menu= g_pTextureMenu)
@@ -136,7 +167,7 @@ g_pVolumeMenu.add_command(label= 'New Volume Box', command= gp.DrawAABBVolumeBox
 g_pMenuBar.add_cascade(label= 'Volume', menu= g_pVolumeMenu)
 
 g_pBkgrndMenu = gp.tk.Menu(g_pMenuBar)
-g_pBkgrndMenu.add_command(label= 'New Bkgrnd Image')
+g_pBkgrndMenu.add_command(label= 'New Bkgrnd Image', command= BkgrndPage.PaintNewPage)
 g_pBkgrndMenu.add_command(label= 'Open Bkgrnd Image')
 g_pBkgrndMenu.add_command(label= 'Save Bkgrnd Image')
 g_pMenuBar.add_cascade(label= 'Bkgrnd', menu= g_pBkgrndMenu)
@@ -166,15 +197,29 @@ def RealRECT_Draw():
 
 g_fGridWidth = 1000
 g_fGridHeight = 1000
-g_fGridRatio = 20
+g_fGridRatio = 35
 
 prev_grd = gp.tk.Canvas()
 
 def CallBackPrevGrid(prev_grd):
     return prev_grd
 
+def XYZoomInScale(g_fGridRatio):
+    g_fGridRatio * 2 + 0.5
+
+def XYZoomPrint():
+    print("Grid Zoom()->XY Sucessfull")
+
 def ClearPrevLines():
     del g_fGridRatio
+    
+"""
+---*HAVING SERIOUS GRID ISSUES, ZOOM IS NOT WORKING*---
+
+DEBUG:
+    I think I might know the issue, the grid doesn't redraw when I go to zoom so it constantly que's the last grid or the current grid without updating to new window
+
+"""
     
 def GridZoomOut8():
     zoomRatio = 8
@@ -183,6 +228,9 @@ def GridZoomOut8():
     gp.PaintXYGrid(g_pXZWnd, g_fGridWidth, g_fGridHeight, zoomRatio)
     gp.PaintXYGrid(g_pYZWnd, g_fGridWidth, g_fGridHeight, zoomRatio)
     
+    Global.GlobalOutputStream('Grid Size : 8')
+        
+    
 def GridZoomOut32():
     zoomRatio = 24
     
@@ -190,6 +238,7 @@ def GridZoomOut32():
     gp.PaintXYGrid(g_pXZWnd, g_fGridWidth, g_fGridHeight, zoomRatio)
     gp.PaintXYGrid(g_pYZWnd, g_fGridWidth, g_fGridHeight, zoomRatio)
     
+    Global.GlobalOutputStream('Grid Size : 32')
     
 def GridZoomOut64():
     zoomRatio = 64
@@ -198,12 +247,16 @@ def GridZoomOut64():
     gp.PaintXYGrid(g_pXZWnd, g_fGridWidth, g_fGridHeight, zoomRatio)
     gp.PaintXYGrid(g_pYZWnd, g_fGridWidth, g_fGridHeight, zoomRatio)
     
+    Global.GlobalOutputStream('Grid Size : 64')
+    
 def GridZoomOut81():
     zoomRatio = 81
     
     gp.PaintXYGrid(g_pXYWnd, g_fGridWidth, g_fGridHeight, zoomRatio)
     gp.PaintXYGrid(g_pXZWnd, g_fGridWidth, g_fGridHeight, zoomRatio)
     gp.PaintXYGrid(g_pYZWnd, g_fGridWidth, g_fGridHeight, zoomRatio)
+    
+    Global.GlobalOutputStream('Grid Size : 81')
     
 def GridZoomOut128():
     zoomRatio = 128
@@ -212,12 +265,16 @@ def GridZoomOut128():
     gp.PaintXYGrid(g_pXZWnd, g_fGridWidth, g_fGridHeight, zoomRatio)
     gp.PaintXYGrid(g_pYZWnd, g_fGridWidth, g_fGridHeight, zoomRatio)
     
+    Global.GlobalOutputStream('Grid Size : 128')
+    
 def GridZoomOut164():
     zoomRatio = 164
     
     gp.PaintXYGrid(g_pXYWnd, g_fGridWidth, g_fGridHeight, zoomRatio)
     gp.PaintXYGrid(g_pXZWnd, g_fGridWidth, g_fGridHeight, zoomRatio)
     gp.PaintXYGrid(g_pYZWnd, g_fGridWidth, g_fGridHeight, zoomRatio)
+    
+    Global.GlobalOutputStream('Grid Size : 164')
     
 
 #---BAD---
@@ -232,10 +289,21 @@ def RedrawWindows():
     del XZ
     del YZ
 """
+
+"""
+
+    Another issue : reset grid windows is not working properly either! :(
+
+"""
+
+#def GlobalCommand_Observer_ResetGridWindows():
+#    g_pXYWnd.destroy()
+#    g_pXZWnd.destroy()
+#    g_pYZWnd.destroy()
    
 g_pGridMenu = gp.tk.Menu(g_pMenuBar)
 g_pGridMenu.add_command(label= 'Grid 8',command= GridZoomOut8)
-g_pGridMenu.add_command(label= 'Grid 32', command= GridZoomOut32)
+g_pGridMenu.add_command(label= 'Grid 32', command= GridZoomOut32())
 g_pGridMenu.add_command(label= 'Grid 64', command= GridZoomOut64)
 g_pGridMenu.add_command(label= 'Grid 81', command= GridZoomOut81)
 g_pGridMenu.add_command(label= 'Grid 128', command= GridZoomOut128)
@@ -245,7 +313,7 @@ g_pGridMenu.add_command(label= 'Draw New Brush', command= RealRECT_Draw)
 g_pGridMenu.add_separator()
 g_pGridMenu.add_command(label = 'Snap to grid')
 g_pGridMenu.add_separator()
-g_pGridMenu.add_command(label= 'Reset Grid Type' )
+g_pGridMenu.add_command(label= 'Reset Grid Type')
 g_pMenuBar.add_cascade(label= 'Grid', menu= g_pGridMenu)
 
 g_pWorkzoneMenu = gp.tk.Menu(g_pMenuBar)
@@ -257,9 +325,118 @@ g_pConstructionZoneMenu.add_command(label= 'Construction Zone View')
 g_pConstructionZoneMenu.add_command(label= 'Brush Construction')
 g_pMenuBar.add_cascade(label= 'Construction Zone', menu= g_pConstructionZoneMenu)
 
-print('---Menu working---')
-Global.GlobalOutputStream() == '---Menu Working---'##testing global stuff
-print('function : Global.GlobalOutputStream() == '', does not work nor print strings')
-print('---Application Running---')
+Global.GlobalOutputStream('---Menu working---')
+##uncrustified
+##Global.GlobalOutputStream('function : Global.GlobalOutputStream() == '', does not work nor print strings, UPDATE : CHANGED CODE NOW WORKS! Just differently')
+Global.GlobalOutputStream('---Application Running---')
+
+#==========================
+# print grid types data
+
+#just reference code
+##g_pSplashImage = gp.tk.PhotoImage(name='SPLASH', master=g_pSplashScreen , format = 'PNG', file = 'app\esp_splash_logo' + '.png')
+
+def XYPrint():
+   #currents
+   xCurr = XYWnd.xCur
+   yCurr = XYWnd.yCur
+   CurXPos = XYWnd.xPos
+   CurYPos = XYWnd.yPos
+   #buffering
+   pXYStringBuffer = [2048]
+   
+   bXYDragged = XYWnd.bDragged = True or False
+   
+   XYWnd.mWidth = gp.w
+   XYWnd.mHeight = gp.h
+   XYWnd.mRows and XYWnd.mColumns == gp.ratio
+   
+   set().add(XYWnd.viewtype)
+   XYWnd.viewtype == gp.PLANE_X and gp.PLANE_Y
+   
+   XYWnd.XYSetWnd(g_pXYWnd)
+   
+   XYWnd.xyvec3_t == [0.0, 0.0, 0.0]
+   ##XYWnd.mXYMatrix == 16##uncrustify later
+   
+   ##wrestled with this xy_icon rendering issues for about a solid 2 hours, praise the Lord I figured out
+   #note : have to call the <master=> func or else image wont bind to grid view
+   xy_icon = PhotoImage(master= g_pXYWnd)
+   g_pXYWnd.create_image(345, 165, image= xy_icon)
+   
+   g_pXYWnd.xy_icon = xy_icon
+   
+   Global.GlobalOutputStream('XYPrint(()->g_pXYWnd)::Successfull')
+ 
+XYPrint()
+
+#============================
+#   XZ Print()
+def XZPrint():
+    
+    xCurr = XZWnd.xCur
+    yCurr = XZWnd.yCur
+    CurXPos = XZWnd.xPos
+    CurYPos = XZWnd.yPos
+   #buffering
+    pXYBuff = str = [2048]
+   
+    bXZDragged = XZWnd.bDragged = True or False
+   
+    XZWnd.mWidth = gp.w
+    XZWnd.mHeight = gp.h
+    XZWnd.mRows and XZWnd.mColumns == gp.ratio
+   
+    set().add(XZWnd.viewtype)
+    XZWnd.viewtype == gp.PLANE_X and gp.PLANE_Z
+   
+    XZWnd.XZSetWnd(g_pXZWnd)
+   
+    XZWnd.xzvec3_t == [0.0, 0.0, 0.0]
+    
+    #****************************************************************************
+    xz_icon = PhotoImage(master= g_pXZWnd)
+    g_pXZWnd.create_image(345, 165, image= xz_icon)
+    
+    g_pXZWnd.xz_icon = xz_icon
+    
+    Global.GlobalOutputStream('XZPrint(()->g_pXZWnd)::Successfull')
+   
+XZPrint()
+
+#============================
+#   YZ print() 
+def YZPrint():
+    
+    xCurr = YZWnd.xCur
+    yCurr = YZWnd.yCur
+    CurXPos = YZWnd.xPos
+    CurYPos = YZWnd.yPos
+   #buffering
+    pXYBuff = str = [2048]
+   
+    bYZDragged = YZWnd.bDragged = True or False
+   
+    YZWnd.mWidth = gp.w
+    YZWnd.mHeight = gp.h
+    YZWnd.mRows and YZWnd.mColumns == gp.ratio
+   
+    set().add(YZWnd.viewtype)
+    YZWnd.viewtype == gp.PLANE_Y and gp.PLANE_Z
+   
+    YZWnd.YZSetWnd(g_pYZWnd)
+   
+    YZWnd.yzvec3_t == [0.0, 0.0, 0.0]
+    
+    
+    #**********************************************************************
+    yz_icon = PhotoImage(master= g_pYZWnd)
+    g_pYZWnd.create_image(345, 165, image= yz_icon)
+    
+    g_pYZWnd.yz_icon = yz_icon
+    
+    Global.GlobalOutputStream('YZPrint(()->g_pYZWnd)::Successfull')
+   
+YZPrint()
 
 g_pMainFrame.mainloop()

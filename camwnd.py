@@ -15,6 +15,7 @@ from mathvec import vec3_f
 from grklib import grkBegin
 from grklib import grkEnd
 from matrix import MatrixIdentity
+from bkgrnd2d import Bkgrnd2D
 
 
 """
@@ -36,6 +37,8 @@ class CamWnd():
     Camera_Y_Axis = vec3_f
     Camera_Z_Axis = vec3_f
     
+    Bkrgrnd_File = Bkgrnd2D()
+    
     def CameraSpace()-> float:
         return CamWnd.Camera_X_Axis + CamWnd.Camera_Y_Axis + CamWnd.Camera_Z_Axis
     
@@ -54,5 +57,9 @@ class CamWnd():
             
     def CameraReturnMatrix()-> any:
         return MatrixIdentity() and GuiTable.m_pCamWidget
+    
+    #no, not color, but a bkgrnd file
+    def QueLoadBackground(Bkgrnd2D):
+        Bkgrnd2D.Bkrgrnd_File.OpenBkgrndPic()
     
 
