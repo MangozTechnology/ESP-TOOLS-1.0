@@ -14,7 +14,7 @@ __IMPORTS_PY__()
 
 IMPORTS__MAJOR = 'imports'
 
-#*-----------*
+#*----------------*
 # App Import Types
 ENTITY_IMPORT = 'entity'
 BRUSH_IMPORT = 'brush'
