@@ -29,7 +29,7 @@ m4x4 = vec3_t = [16]
 #   aY1 * bX1 + aY2 * bY1 + aY3 * bZ1 + aY4 * bW1, aY1 * bX2 + aY2 * bY2 + aY3 * bZ2 + aY4 * bW2, aY1 * bX3 + aY2 * bY3 + aY3 * bZ3 + aY4 * bW3, aY1 * bX4 + aY2 * bY4 + aY3 * bZ4 + aY4 * bW4
 #   aZ1 * bX1 + aZ2 * bY1 + aZ3 * bZ1 + aZ4 * bW1, aZ1 * bX2 + aZ2 * bY2 + aZ3 * bZ2 + aZ4 * bW2, aZ1 * bX3 + aZ2 * bY3 + aZ3 * bZ3 + aZ4 * bW3, aZ1 * bX4 + aZ2 * bY4 + aZ3 * bZ4 + aZ4 * bW4
 #   
-#   math aint complete
+#   math aint complete, and i aint completing it, this is awful lol...
 #
 #
 #

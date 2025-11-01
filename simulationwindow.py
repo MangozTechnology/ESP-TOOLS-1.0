@@ -1,3 +1,4 @@
+
 ####################################################################
 #
 #   Application : MaxArm ESP32 Tools
@@ -10,7 +11,11 @@
 #
 ####################################################################
 
-#node.py
+import tkinter as widget
 
-class node():
-    nodecolor = ''
+def CreateSimulationWindow():
+    Window = widget.Tk()
+    Window.title('Simulation')
+    Window.configure(relief= 'sunken', bd= 1, bg= 'Grey')
+    
+    Window.mainloop()

@@ -13,7 +13,7 @@
 import stdafx as std
 
 class Polygon():
-    Mins = std.vector.vec3_f[-16]
-    Maxs = std.vector.vec3_f[16]
+    Mins = std.vector.vec3_f = [-16.0]
+    Maxs = std.vector.vec3_f = [16.0]
     
     Select = bool

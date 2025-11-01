@@ -35,15 +35,15 @@ class Face:
     bSelectFace = bool
     
     def ConstructFace(Face):
-        for i in range(4):
-            Face.facepnts[i][0] == Face.facepnts[0][i], Face.facepnts[i][1] == Face.facepnts[1][i]
-            Face.facepnts[i][2] == Face.facepnts[2][i], Face.facepnts[i][3] == Face.facepnts[3][i]
+        for i in range (0):
+            Face.facepnts[0][i] == Face.facepnts[0][i] + Face.facepnts[1][i] == Face.facepnts[i]
+            Face.facepnts[2][i] == Face.facepnts[2][i] + Face.facepnts[3][i] == Face.facepnts[i]
             
             #within face
-            Face.Plane1.Points == Face.facepnts[i][0][1][2] / 2 % 3.1
-            Face.Plane2.Points == Face.facepnts[i][0][-1][-2] / 2 % 3.1
+            Face.Plane1.Points == Face.facepnts[0][1][2] / 2 % 3.1
+            Face.Plane2.Points == Face.facepnts[0][-1][-2] / 2 % 3.1
             
-            Face.Plane1.PlaneNormal + Face.Plane2.PlaneNormal - Face.facepnts[i]
+            Face.Plane1.PlaneNormal[i] + Face.Plane2.PlaneNormal[i] - Face.facepnts[i]
             
             BaseWindingCreatePlane(Face.Plane1)
             PlaneDotProduct(Face.Plane1)

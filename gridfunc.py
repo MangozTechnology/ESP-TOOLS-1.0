@@ -32,7 +32,6 @@ def ZoomIn(Grid, g_fGrid_width, g_fGrid_height, g_fGrid_interval):
         for y in range(0, g_fGrid_height, g_fGrid_interval):
             Grid.create_line(0, y, g_fGrid_width, y, fill="blue")
 
-
 #zoom out function
 def ZoomOut(Grid, g_fGrid_interval):
     g_fGrid_interval = 10
@@ -46,24 +45,19 @@ drag_grid = bool
 def DragGrid()-> bool:
     drag_grid = True
 
-def IncrementGrid():
-    any()
 
-def DecrementGrid():
-    any()
+class GridDrawQue():
+    
+    def GridDrawBlock(Grid):
+        m_Width = 800
+        m_Height = 1000
+        m_Spacing = 383
+        m_LineThickness = 2#thickness of grid block line
 
-#1024 buffer count
-
-#for holding points and nodes in the grid
-def GridEntityTable():
-    any()
-
-#
-# USE GRK
-#
-def GridRenderPoint():
-    any()
-
-def GridRenderNode():
-    any()
-
+        for i in range(0, m_Width, m_Spacing):
+            Grid.create_line(383, 0, 383, m_Height, fill= "gray", width= m_LineThickness)
+        for j in range(0, m_Height, m_Spacing):
+            Grid.create_line(0, 218, m_Width, 218, fill= "gray", width= m_LineThickness)
+        
+        
+        

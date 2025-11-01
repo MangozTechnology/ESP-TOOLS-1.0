@@ -59,10 +59,10 @@ class BkgrndPage:
     
     def PaintNewPage():
         page = tk.Tk()
-        page.configure(width= 450, height= 350, background= 'Gray26')
+        page.configure(width= 450, height= 350, background= 'Snow')
         page.title('New Background File')
         
-        dirlist = tk.Listbox(page, width= 75, height= 350, relief= 'solid', background= 'Gray26')
+        dirlist = tk.Listbox(page, width= 75, height= 350, relief= 'sunken', background= 'Snow', bd= 2)
         dirlist.pack(side= 'left')
         
         _pageFileDirectory = r"C:Downloads\ESMatic\backgrounds"

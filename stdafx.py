@@ -33,10 +33,10 @@ import texturewnd as texwnd
 class GuiTable():
     MainWindow = tk.Tk()
     
-    m_pXYWidget = tk.Canvas(MainWindow, relief= 'sunken', background= 'Gray26', bd = 1, width= 730, height= 400)
-    m_pXZWidget = tk.Canvas(MainWindow, relief= 'sunken', background= 'Gray26', bd = 1, width= 730, height= 400)
-    m_pYZWidget = tk.Canvas(MainWindow, relief= 'sunken', background= 'Gray26', bd = 1, width= 800, height = 400)
-    m_pCamWidget = tk.Canvas(MainWindow, relief= 'sunken', bg= 'Gray', bd= 1, width= 800, height= 400)
+    m_pXYWidget = tk.Canvas(MainWindow, relief= 'sunken', background= 'Snow', bd = 3, width= 730, height= 400)
+    m_pXZWidget = tk.Canvas(MainWindow, relief= 'sunken', background= 'Snow', bd = 3, width= 730, height= 400)
+    m_pYZWidget = tk.Canvas(MainWindow, relief= 'sunken', background= 'Snow', bd = 3, width= 800, height = 400)
+    m_pCamWidget = tk.Canvas(MainWindow, relief= 'sunken', bg= 'DarkGray', bd= 3, width= 800, height= 400)
 
 #====================================
 #
@@ -68,11 +68,11 @@ def PaintXYGrid(m_pGridDummy, w, h, ratio):
     
 def PrintGridViewType(m_pGridDummy):
     if m_pGridDummy == GuiTable.m_pXYWidget:
-        m_pGridDummy.create_text(25, 25, text= "XY", font= ("Consolas", 15), fill = "white")
+        m_pGridDummy.create_text(25, 25, text= "|__", font= ("Consolas", 15), fill = "blue")
     if m_pGridDummy == GuiTable.m_pXZWidget:
-        m_pGridDummy.create_text(25, 25, text= "XZ", font= ("Consolas", 15), fill = "white")
+        m_pGridDummy.create_text(25, 25, text= "/__", font= ("Consolas", 15), fill = "blue")
     if m_pGridDummy == GuiTable.m_pYZWidget:
-        m_pGridDummy.create_text(25, 25, text= "YZ", font= ("Consolas", 15), fill = "white")
+        m_pGridDummy.create_text(25, 25, text= "|/", font= ("Consolas", 15), fill = "blue")
 
 #moved to brush.py
 """
@@ -244,7 +244,7 @@ def GridDrawRectangle(m_pGridDummy):
     
 def DrawAABBVolumeBox():
     CameraWnd = GuiTable.m_pCamWidget
-    CameraWnd.create_polygon(10, 10, 50, 50, 3, fill="gray", outline= 'black')
+    CameraWnd.create_polygon(300, 300, 300, 100, 300, 300, 100, 500, fill="", outline= 'blue')
     print('---Drawing AABB---')
     
 def DrawGlobalsWindow():

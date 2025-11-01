@@ -14,8 +14,8 @@ from stdafx import GuiTable
 from mathvec import vec3_f
 from grklib import grkBegin
 from grklib import grkEnd
-from matrix import MatrixIdentity
 from bkgrnd2d import Bkgrnd2D
+from global_stream import*
 
 
 """
@@ -48,7 +48,7 @@ class CamWnd():
     """
         Que's the drawing of 3 Dimensional shapes in the camera view
     """
-    def QueDraw(_brush):
+    def QueBrushDraw(_brush):
         #in range of the camera view
         for i in range(CamWnd):
             grkBegin(_brush)
@@ -56,10 +56,32 @@ class CamWnd():
             grkEnd(_brush)
             
     def CameraReturnMatrix()-> any:
-        return MatrixIdentity() and GuiTable.m_pCamWidget
+        any()
     
     #no, not color, but a bkgrnd file
     def QueLoadBackground(Bkgrnd2D):
         Bkgrnd2D.Bkrgrnd_File.OpenBkgrndPic()
+        
+        
+        """
+        Brush Construction Zone :
+            When this is enabled, lines will pertrude outward on all axis's, X, Y and Z, to show were construction zone is
+        """
+    def BrushConstructionZone():
+        #create a reference to the camera window
+        viewport = GuiTable.m_pCamWidget
+        
+        #now draw the lines to show construction zone where brushes can be rendered or scene and created
+        #the Y construction line
+        viewport.create_line(300, 500, 300, 0, fill= 'red', width= 1, dash= 2)
+        #the X construction line
+        viewport.create_line(100, 300, 500, 100, fill= 'red', width= 1, dash= 2)
+        #the Z construction line
+        viewport.create_line(-80, 80, 800, 353, fill= 'red', width= 1, dash= 2)
     
+        #message if lines create and dont fail
+        Global.GlobalOutputStream('XYZ Construction Zone Line Tool Created...')
+        
+        #the code for this is actually really simple, it is just the math that is difficult to figure out, but praise to the Lord I figured it out
+        #also was going to use stipple's for the line, but for some reason, couldn't create more than one line if I used stipple, so just use dashes
 

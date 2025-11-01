@@ -18,10 +18,14 @@ from time import time
 from xywnd import XYWnd
 from xzwnd import XZWnd
 from yzwnd import YZWnd
-from matrix import MatrixIdentity
 from tkinter import PhotoImage
 from bkgrnd2d import BkgrndPage
-
+from simulationwindow import CreateSimulationWindow
+from gridfunc import GridDrawQue
+from viewport import DrawPlane
+from viewport import DrawPolygon
+from qesmatictypes import*
+from camwnd import*
 
 
 #g_pSplashScreen = gp.tk.Tk()
@@ -56,7 +60,7 @@ g_pMenuBar = gp.tk.Menu(g_pMainFrame, type= 'menubar')
 g_pFileMenu = gp.tk.Menu(g_pMenuBar)
 g_pMenuBar.configure(bg= 'black')
 g_pFileMenu.add_command(label= 'New ESP Map')
-g_pFileMenu.add_command(label= 'Open ESP Map')
+g_pFileMenu.add_command(label= 'Open ESP Map', command= OpenMapDialog)
 g_pFileMenu.add_command(label= 'Save ESP Map')
 g_pFileMenu.add_command(label= 'Save ESP Map As...')
 g_pFileMenu.add_separator()
@@ -151,9 +155,9 @@ g_pEntityMenu.add_command(label= 'Null Robot')
 g_pMenuBar.add_cascade(label= 'Entities', menu= g_pEntityMenu)
 
 g_pRenderMenu = gp.tk.Menu(g_pMenuBar)
-g_pRenderMenu.add_command(label= 'Wireframe')
-g_pRenderMenu.add_command(label= 'Full')
-g_pRenderMenu.add_command(label= 'Fake')
+g_pRenderMenu.add_command(label= 'Lighting Wireframe')
+g_pRenderMenu.add_command(label= 'Lighting Full')
+g_pRenderMenu.add_command(label= 'Lighting Fake')
 g_pRenderMenu.add_separator()
 g_pRenderMenu.add_command(label= 'Init 3D Viewport', command= gp.InitRender)
 g_pMenuBar.add_cascade(label= 'Render', menu = g_pRenderMenu)
@@ -188,7 +192,18 @@ gp.PrintGridViewType(g_pXYWnd)
 gp.PrintGridViewType(g_pXZWnd)
 gp.PrintGridViewType(g_pYZWnd)
 
+#GridDrawQue.GridDrawBlock(g_pXYWnd)
+#GridDrawQue.GridDrawBlock(g_pXZWnd)
+#GridDrawQue.GridDrawBlock(g_pYZWnd)
+
 #NewBrush_DragEvent = g_pXYWnd.bind("<Button-1>")
+
+#dummy plane drawing regression test
+#DrawPlane(g_pXYWnd)
+#DrawPlane(g_pXZWnd)
+#DrawPlane(g_pYZWnd)
+
+#DrawPolygon(g_pCamWnd)
 
 def RealRECT_Draw():
         gp.GridDrawRectangle(g_pXYWnd)
@@ -205,7 +220,7 @@ def CallBackPrevGrid(prev_grd):
     return prev_grd
 
 def XYZoomInScale(g_fGridRatio):
-    g_fGridRatio * 2 + 0.5
+    return g_fGridRatio * 2 + 0.5
 
 def XYZoomPrint():
     print("Grid Zoom()->XY Sucessfull")
@@ -321,9 +336,12 @@ g_pWorkzoneMenu.add_command(label= 'Workzone Enable')
 g_pMenuBar.add_cascade(label= 'Workzone', menu= g_pWorkzoneMenu)
 
 g_pConstructionZoneMenu = gp.tk.Menu(g_pMenuBar)
-g_pConstructionZoneMenu.add_command(label= 'Construction Zone View')
-g_pConstructionZoneMenu.add_command(label= 'Brush Construction')
+g_pConstructionZoneMenu.add_command(label= 'Brush Construction', command= CamWnd.BrushConstructionZone)
 g_pMenuBar.add_cascade(label= 'Construction Zone', menu= g_pConstructionZoneMenu)
+
+g_pRunMenu = gp.tk.Menu(g_pMenuBar)
+g_pRunMenu.add_command(label= 'Simulate', command= CreateSimulationWindow)
+g_pMenuBar.add_cascade(label= 'Run', menu= g_pRunMenu)
 
 Global.GlobalOutputStream('---Menu working---')
 ##uncrustified
@@ -366,6 +384,9 @@ def XYPrint():
    
    g_pXYWnd.xy_icon = xy_icon
    
+   #call dimension print
+   XYDimensionsPrint()
+   
    Global.GlobalOutputStream('XYPrint(()->g_pXYWnd)::Successfull')
  
 XYPrint()
@@ -391,6 +412,9 @@ def XZPrint():
     XZWnd.viewtype == gp.PLANE_X and gp.PLANE_Z
    
     XZWnd.XZSetWnd(g_pXZWnd)
+    
+    #now call print dimensions function
+    XZDimensionsPrint()
    
     XZWnd.xzvec3_t == [0.0, 0.0, 0.0]
     
@@ -433,10 +457,18 @@ def YZPrint():
     yz_icon = PhotoImage(master= g_pYZWnd)
     g_pYZWnd.create_image(345, 165, image= yz_icon)
     
+    #now call print dimensions function
+    YZDimensionsPrint()
+    
     g_pYZWnd.yz_icon = yz_icon
     
     Global.GlobalOutputStream('YZPrint(()->g_pYZWnd)::Successfull')
    
 YZPrint()
+
+#testing...
+#compiled but no face shows in the viewport
+#DummyFaceDraw()
+#hmm i'll do more work later, im in a rush
 
 g_pMainFrame.mainloop()
