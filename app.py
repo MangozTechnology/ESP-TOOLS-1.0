@@ -466,9 +466,14 @@ def YZPrint():
    
 YZPrint()
 
+#windows icon
+#GuiTable.MainWindow.iconmask(bitmap= 'esmatic_icon.png')
+
 #testing...
 #compiled but no face shows in the viewport
 #DummyFaceDraw()
 #hmm i'll do more work later, im in a rush
+
+
 
 g_pMainFrame.mainloop()

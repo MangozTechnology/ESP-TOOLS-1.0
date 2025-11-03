@@ -23,7 +23,7 @@ from global_stream import*
 """
 
 class CamWnd():
-    #wether the 3D camera viewport is frozen, may happen if a brush drawing fails or planes dont wind together properly
+    #weather the 3D camera viewport is frozen, may happen if a brush drawing fails or planes dont wind together properly
     viewBuffer = bool
     #true or false
     cubicClipView = bool

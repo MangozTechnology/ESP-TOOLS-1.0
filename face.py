@@ -16,7 +16,7 @@ from plane3 import BaseWindingCreatePlane
 from plane3 import PlaneDotProduct
 
 ######################################################
-#   Face is constructed of 2 planes welded together  #
+#   Face is constructed of 2 planes winded together #
 ######################################################
 
 class Face:
@@ -27,8 +27,10 @@ class Face:
     ##face is constructed of 2 planes winded together
     Plane1 = Plane3()
     Plane2 = Plane3()
+    
+    faceNumber = int
 
-    facepnts = int = [4]
+    facepnts = [0, 0, 0, 0]
 
     fTexture = str
 

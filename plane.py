@@ -12,6 +12,10 @@
 
 import mathvec as v
 
+"""
+    I've decided we are no longer using this plane its a bad class or bad apple :), I rewrote this in a new class, which is Plane3()
+"""
+
 va = v.vec3_f
 vb = v.vec3_f
 vc = v.vec3_f

@@ -12,6 +12,9 @@
 
 import stdafx as xy_t
 
+from brush import*
+from qesmatictypes import*
+
 class XYWnd():
     
     xCur = int
@@ -40,8 +43,54 @@ class XYWnd():
     def BrushDrawXY(xy_brush):
         any()
         
+    """
+        *!When mouse click drag in xyview, it creates a new brush!*    
+    """
     def NewBrush_Drag():
-        any()
+        # a reference to xywindow
+        xy = xy_t.GuiTable.m_pXYWidget
+        
+        #setup brush variables
+        brush = Brush()
+        
+        brushEdges = brush.BrushEdges
+        brushPoints = brush.BrushVertPoints
+        
+        brushFaceTop = Face()
+        brushFaceLeft = Face()
+        brushFaceRight = Face()
+        brushFaceBack = Face()
+        brushFaceFront = Face()
+        brushFaceBottom = Face()
+        
+        brushFaceTop.ConstructFace(brushFaceTop)
+        brushFaceLeft.ConstructFace(brushFaceLeft)
+        brushFaceRight.ConstructFace(brushFaceRight)
+        brushFaceBack.ConstructFace(brushFaceBack)
+        brushFaceFront.ConstructFace(brushFaceFront)
+        brushFaceBottom.ConstructFace(brushFaceBottom)
+        
+        
+        brushTop = brush.BrushFace[0] == brushFaceTop.faceNumber = 0
+        brushLeft = brush.BrushFace[1] == brushFaceLeft.faceNumber = 1
+        brushRight = brush.BrushFace[2] == brushFaceRight.faceNumber = 2
+        brushBack = brush.BrushFace[3] == brushFaceBack.faceNumber = 3
+        brushFront = brush.BrushFace[4] == brushFaceFront.faceNumber = 4
+        brushBottom = brush.BrushFace[5] == brushFaceBottom.faceNumber = 5
+        
+        brushSide = Side()
+        
+        brushSide.brushSideCount[0] == brushTop
+        brushSide.brushSideCount[1] == brushLeft
+        brushSide.brushSideCount[2] == brushRight
+        brushSide.brushSideCount[3] == brushBack
+        brushSide.brushSideCount[4] == brushFront
+        brushSide.brushSideCount[5] == brushBottom
+        
+        
+        
+        
+        
         
     def DrawESPXY():
         any()

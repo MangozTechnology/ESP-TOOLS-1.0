@@ -26,7 +26,6 @@ import bsp as bsp_t
 class Brush:
 
     BrushNumberId = 0
-    
     BrushVertPoints = 8   
     
     ##face count
@@ -36,6 +35,9 @@ class Brush:
     BrushFace = face_t = [6]
     
     BrushEdges = 12
+    
+    """*!does the brush have a caulk texture applied to it!*"""
+    bCaulked = bool
     
     def SetSides(Brush):
         set().add(Brush.BrushSideCount)

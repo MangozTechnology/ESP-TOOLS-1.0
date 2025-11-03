@@ -232,9 +232,11 @@ def OpenMapDialog():
         
 
 #===================================================
-zbuffer = int
-xbuffer = int
-ybuffer = int
+# For buffering the XY, XZ and YZ Windows
+# Viewtype can match buffer which could switch viewtype properly in a different method
+zBuffer = int
+xBuffer = int
+yBuffer = int
 
 #===================================================
 imagebuffer = int
@@ -242,7 +244,7 @@ imageunsignedcode = str
 imageaddress = int
 
 #===================================================
-AppIcon = ""
+AppIcon = "esmatic_icon.png"
 AppIconBuffer = int
 NewIconAddress = int
 
