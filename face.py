@@ -14,6 +14,7 @@ import plane as p
 from plane3 import Plane3
 from plane3 import BaseWindingCreatePlane
 from plane3 import PlaneDotProduct
+from shader import*
 
 ######################################################
 #   Face is constructed of 2 planes winded together #

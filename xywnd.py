@@ -14,6 +14,7 @@ import stdafx as xy_t
 
 from brush import*
 from qesmatictypes import*
+from caulk import*
 
 class XYWnd():
     
@@ -56,6 +57,7 @@ class XYWnd():
         brushEdges = brush.BrushEdges
         brushPoints = brush.BrushVertPoints
         
+        #init brush faces
         brushFaceTop = Face()
         brushFaceLeft = Face()
         brushFaceRight = Face()
@@ -63,6 +65,7 @@ class XYWnd():
         brushFaceFront = Face()
         brushFaceBottom = Face()
         
+        #now construct the faces
         brushFaceTop.ConstructFace(brushFaceTop)
         brushFaceLeft.ConstructFace(brushFaceLeft)
         brushFaceRight.ConstructFace(brushFaceRight)
@@ -71,6 +74,7 @@ class XYWnd():
         brushFaceBottom.ConstructFace(brushFaceBottom)
         
         
+        #brush axis face position
         brushTop = brush.BrushFace[0] == brushFaceTop.faceNumber = 0
         brushLeft = brush.BrushFace[1] == brushFaceLeft.faceNumber = 1
         brushRight = brush.BrushFace[2] == brushFaceRight.faceNumber = 2
@@ -78,6 +82,7 @@ class XYWnd():
         brushFront = brush.BrushFace[4] == brushFaceFront.faceNumber = 4
         brushBottom = brush.BrushFace[5] == brushFaceBottom.faceNumber = 5
         
+        #register brush sides
         brushSide = Side()
         
         brushSide.brushSideCount[0] == brushTop
@@ -87,8 +92,34 @@ class XYWnd():
         brushSide.brushSideCount[4] == brushFront
         brushSide.brushSideCount[5] == brushBottom
         
+        #now set the brush sides and faces
+        brush.SetSides(brush)
         
+        brush.bSelectBrush == True
         
+        # a brushes texture is automatically caulk
+        _brshCaulker = CaulkIteratorModule()
+        _brshCaulker.CaulkBrush(brush)
+        
+        #now lets add the brush to the lists
+        m_QESfacetable = QES_GlobalFaceTable()
+        m_QESbrushtable = QES_GlobalBrushTable()
+        
+        m_QESfacetable.PFN_GET_FACE(brushFaceTop)
+        m_QESfacetable.qes_global_FaceList = + 1
+        m_QESfacetable.PFN_GET_FACE(brushFaceLeft)
+        m_QESfacetable.qes_global_FaceList = + 1
+        m_QESfacetable.PFN_GET_FACE(brushFaceRight)
+        m_QESfacetable.qes_global_FaceList = + 1
+        m_QESfacetable.PFN_GET_FACE(brushFaceBack)
+        m_QESfacetable.qes_global_FaceList = + 1
+        m_QESfacetable.PFN_GET_FACE(brushFaceFront)
+        m_QESfacetable.qes_global_FaceList = + 1
+        m_QESfacetable.PFN_GET_FACE(brushFaceBottom)
+        m_QESfacetable.qes_global_FaceList = + 1
+        
+        m_QESbrushtable.PFN_GET_BRUSH(brush)
+        m_QESbrushtable.qes_global_BrushList = +1
         
         
         

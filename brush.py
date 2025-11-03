@@ -55,7 +55,6 @@ class Brush:
     ##brushvectors = f.p.v.vec3_f   | trash variable
 
     bScalable = bool
-    
     BrushTextureShader = str
     
     def SetBrushTexture(Brush) -> str:
