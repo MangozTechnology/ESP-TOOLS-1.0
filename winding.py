@@ -10,17 +10,16 @@
 #
 ####################################################################
 
-import brush
-import face
-import plane3
+class Winding:
+    
+    windingId = 0
+    
+    windingRedoId = 0
+    windingUndoId = 0
+    
+    bWinded = bool
+    bWindingConcave = bool
+    
+    windingPoints = [4]
 
-class Map:
-    
-    Map_Name = str
-    Map_Path = str
-    
-    brushes = brush.Brush()
-    faces = face.Face()
-    planes = plane3.Plane3()
-    
     

@@ -11,6 +11,7 @@
 ####################################################################
 
 from stdafx import GuiTable
+from stdafx import*
 from mathvec import vec3_f
 from grklib import grkBegin
 from grklib import grkEnd
@@ -22,7 +23,11 @@ from global_stream import*
  functions for the camera window
 """
 
-class CamWnd():
+##NOTE: Use the camera.py class mainly now there has been changes but I dont want to delete anything 
+
+rectangle = tk.Canvas
+
+class CamWnd(rectangle):
     #weather the 3D camera viewport is frozen, may happen if a brush drawing fails or planes dont wind together properly
     viewBuffer = bool
     #true or false

@@ -12,7 +12,9 @@
 
 import stdafx as yz_t
 
-class YZWnd():
+rectangle = yz_t.tk.Canvas
+
+class YZWnd(rectangle):
     
     xCur = int
     yCur = int

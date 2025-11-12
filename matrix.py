@@ -11,9 +11,10 @@
 ####################################################################
 
 from mathvec import vec3_f as vec3_t
+from stdafx import*
 
 ##global matrix 4x4
-m4x4 = vec3_t = [16]
+m4x4 = [0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0, 13.0, 14.0, 15.0]
 
 #   What a 4x4 matrix math looks like
 #   Got a migrane from writing this out
@@ -36,5 +37,36 @@ m4x4 = vec3_t = [16]
 #
 #
 
+"""
+    Matrix needed for XY, XZ and YZ grid views and obviously the 3D world
+"""
 
-    
+class EulerOrderType:
+    MATRIX_TRANSLATE = float
+    MATRIX_SCALE = float
+    MATRIX_ROTATE = float
+
+def qesPushMatrix()->float:
+    return m4x4[0]*m4x4[1]*m4x4[2] == PLANE_X and m4x4[4]*m4x4[5]*m4x4[6] == PLANE_Y and m4x4[8]*m4x4[9]*m4x4[10] == PLANE_Z
+
+
+
+m_pEuler = EulerOrderType()
+
+
+
+"""
+    Some euler functions handlers
+"""
+
+#get translation
+def sceneGetTranslation()->float:
+    return m_pEuler.MATRIX_TRANSLATE
+
+#get scale
+def sceneGetScale()->float:
+    return m_pEuler.MATRIX_SCALE
+
+#get rotation
+def sceneGetRotation()->float:
+    return m_pEuler.MATRIX_ROTATE

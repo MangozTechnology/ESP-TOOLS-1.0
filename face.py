@@ -62,6 +62,11 @@ class EditorFaceIterator:
     def FaceIteratorTexture(_face):
         Face.fTexture == _face.__str__() == ''
         
+    def FaceIteratorAutoCaulk(f):
+        f = Face()
+        f.fTexture == 'Caulk.png'
+        f.FaceIteratorTexture(f)
+        
     def FaceIterateSelectFace(_face):
         for _face in range(True):
             Face.bSelectFace == True

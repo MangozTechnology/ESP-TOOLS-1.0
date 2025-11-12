@@ -14,7 +14,7 @@
 This file is used for creating algorithms in this 3D editor
 """
 
-class __Algorithim__():
+class __Algorithim__:
     
     #stores 2 hash values in tiny string table of 2
     def InsertHash(char, char_K):

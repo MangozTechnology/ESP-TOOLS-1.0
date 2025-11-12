@@ -25,6 +25,7 @@ from stdafx import GuiTable
 from mathvec import vec3_f as vec3_t
 import tkinter as tk
 from tkinter import filedialog
+from tkinter import messagebox as dialog
 
 EDITOR_VERSION = '1.0'
 
@@ -172,8 +173,8 @@ def FaceDrawYZ(face, viewtype):
 def FaceDrawViewport(face, viewport):
     any()
 
-def BrushDrawXY(brush, viewtype):
-    any()
+#def BrushDrawXY(brush, viewtype):
+ #   any()
     
 def BrushDrawXZ(brush, viewtype):
     any()
@@ -221,7 +222,7 @@ def CloseEspMap( map ):
     *!File types that are maps for the ESMatic app are , *.espmap or *.espbsp, only these files are supported for map formats!*
 """
 def OpenMapDialog():
-    open_map = filedialog.askopenfilename(title= "Open ESP Map", filetypes=[("ESPMap", "*.espmap"), ("ESPBsp", "*.espbsp")])
+    open_map = filedialog.askopenfilename(title= "Open ESP Map", filetypes=[("*.espmap", "*.espmap"), ("*.espbsp", "*.espbsp")])
     if open_map:
         #now load the map
         LoadEspMap(open_map)
@@ -308,30 +309,9 @@ class LiteralType:
 #==============================================
 #   Highlighter utility code...
 #   Used for Brush or Face Selection
-SELECTION_HIGHLIGHTER_COLOR_RED = "#FF2A31"
-SELECTION_HIGHLIGHTER_COLOR_GREEN = "#67FF2B"
-SELECTION_HIGHLIGHTER_COLOR_BLUE = "#0071E2"
-
-
-#==============================================
-#       Camera Utility Code
-class Camera:
-    #**********************
-    #*Sender is for calling a function
-    def Sender(_func):
-        _func
-        
-    # *!-dimensions-!*
-    X = int
-    Y = int
-    W = int
-    H = int
-    
-    origin = vec3_t
-    
-    bFreeze = bool
-    
-    mouse_movposition = vec3_t
+SELECTION_HIGHLIGHTER_COLOR_RED = "#FF2A3167"
+SELECTION_HIGHLIGHTER_COLOR_GREEN = "#67FF2B7C"
+SELECTION_HIGHLIGHTER_COLOR_BLUE = "#0071E299"
     
 
 #===============================================
@@ -414,7 +394,7 @@ class QESGlobals:
   
 #globals pointer  
 g_qesglobals = QESGlobals
-
+g_qesglobalevent = QESGlobalEvent
 
 #=========================================
 def XYDimensionsPrint():
@@ -432,5 +412,23 @@ def YZDimensionsPrint():
     dimensions_ = "0        64          128         164         512         1024        2048        3026"
     _yz.create_text(350, 7, anchor= 'n', text= dimensions_, font= ("Consolas", 12), fill = "black" )
 
+#=========================================
+def drag_clck_rel():
+    Global.GlobalOutputStream('Drag-Click-Release-Mouse Tool...')
+
+#===============================
+# mosue bindings are so difficult and hard I cant manage to get them to work
+def XYDraw_EventFailed():
+        m_pXYWnd = GuiTable.m_pXYWidget
+        xyMouseEvent = m_pXYWnd.bind(sequence= "<Button-1>")
+        drag_clck_rel()
+        
+        if xyMouseEvent:
+            xyDialog = dialog.showerror('XY Error', message= 'XY Draw Brush Event Failed.', icon= 'error')
+            
+        
+#=============================================================
+#           PEN DRAWING
+            
 
 

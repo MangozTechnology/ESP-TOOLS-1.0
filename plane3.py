@@ -10,7 +10,7 @@
 #
 ####################################################################
 
-from mathvec import vec3_f 
+from mathvec import vec3_f
 
 #
 #   3D Plane
@@ -25,6 +25,7 @@ from mathvec import vec3_f
 #       |       \   
 #       |________\ 
 #
+
 
 class Plane3:
     
@@ -56,3 +57,28 @@ def ScalePlane(Plane3):
     Plane3.vA * Plane3.vB * Plane3.vC
     Plane3.PlaneNormal / 0.5 * 00.1
     Plane3.PlaneDistance - Plane3.PlaneNormal * 0.5
+    
+# planar means flat and so also a plane
+
+#placeholder plane
+#use class Plane3
+plane = Plane3()
+
+#cosine plane
+def planarCos(plane)-> float:
+    return plane.vB / plane.vC
+    
+#sine plane
+def planarSine(plane)->float:
+    return plane.vA and plane.vB / plane.vA and plane.vC
+
+def IteratorBeginPlane(p):
+    PlaneDotProduct(p)
+    BaseWindingCreatePlane(p)
+
+def IteratorBeginPlaneCos(p):
+    planarCos(p)
+    
+def IteratorBeginPlaneSine(p):
+    planarSine(p)
+    

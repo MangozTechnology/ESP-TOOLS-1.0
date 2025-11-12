@@ -26,7 +26,12 @@ from viewport import DrawPlane
 from viewport import DrawPolygon
 from qesmatictypes import*
 from camwnd import*
-
+import pluginmenu.caulkmenu as caulktool
+from brushcreationtool import*
+from matrix import*
+from view import*
+from entity import*
+from xywnd import*
 
 #g_pSplashScreen = gp.tk.Tk()
 #g_pSplashScreen.title('Splash Screen')
@@ -95,7 +100,7 @@ g_pViewMenu.add_command(label= 'XZ')
 g_pMenuBar.add_cascade(label='View', menu= g_pViewMenu)
 
 g_pConnectionMenu = gp.tk.Menu(g_pMenuBar)
-g_pConnectionMenu.add_command(label= 'Find ESP32 MaxArm')
+g_pConnectionMenu.add_command(label= 'Find ESP32 MaxArm', command= EntityWorldClass.EntityOpenMdlFile)
 g_pMenuBar.add_cascade(label= 'Connection', menu = g_pConnectionMenu)
 
 g_pBindingsMenu = gp.tk.Menu(g_pMenuBar)
@@ -331,10 +336,6 @@ g_pGridMenu.add_separator()
 g_pGridMenu.add_command(label= 'Reset Grid Type')
 g_pMenuBar.add_cascade(label= 'Grid', menu= g_pGridMenu)
 
-g_pWorkzoneMenu = gp.tk.Menu(g_pMenuBar)
-g_pWorkzoneMenu.add_command(label= 'Workzone Enable')
-g_pMenuBar.add_cascade(label= 'Workzone', menu= g_pWorkzoneMenu)
-
 g_pConstructionZoneMenu = gp.tk.Menu(g_pMenuBar)
 g_pConstructionZoneMenu.add_command(label= 'Brush Construction', command= CamWnd.BrushConstructionZone)
 g_pMenuBar.add_cascade(label= 'Construction Zone', menu= g_pConstructionZoneMenu)
@@ -343,10 +344,12 @@ g_pRunMenu = gp.tk.Menu(g_pMenuBar)
 g_pRunMenu.add_command(label= 'Simulate', command= CreateSimulationWindow)
 g_pMenuBar.add_cascade(label= 'Run', menu= g_pRunMenu)
 
-Global.GlobalOutputStream('---Menu working---')
+caulktool.InsertCaulkCommandStream(g_pMainFrame, g_pMenuBar)
+
+Global.GlobalOutputStream('Menu working')
 ##uncrustified
 ##Global.GlobalOutputStream('function : Global.GlobalOutputStream() == '', does not work nor print strings, UPDATE : CHANGED CODE NOW WORKS! Just differently')
-Global.GlobalOutputStream('---Application Running---')
+Global.GlobalOutputStream('Application Running')
 
 #==========================
 # print grid types data
@@ -354,117 +357,204 @@ Global.GlobalOutputStream('---Application Running---')
 #just reference code
 ##g_pSplashImage = gp.tk.PhotoImage(name='SPLASH', master=g_pSplashScreen , format = 'PNG', file = 'app\esp_splash_logo' + '.png')
 
+#xy celi
+def xy_celi(g_pXYWnd)->float:
+    """xy celi variables"""
+    xy_height = g_fGridHeight
+    
+    xy_origin = 0.0, 0.0, 0.0
+    
+    return g_qesglobals.d_globals_celi == xy_height
+
+def xy_floor(g_pXYWnd)->float:
+    xy_width = g_fGridWidth
+    
+    xy_origin = 0.0, 0.0, 0.0
+    
+    return g_qesglobals.d_globals_floor == xy_width
+
+def xy_scale(g_pXYWnd)->float:
+    xy_origin = 0.0, 0.0, 0.0
+    xy_scale = g_fGridRatio
+    
+    return g_qesglobals.d_globals_grid_size == xy_scale + xy_celi(g_pXYWnd) + xy_floor(g_pXYWnd)
+
+    """
+    ==========================================
+                   XYPrint()
+    ==========================================
+    """
 def XYPrint():
    #currents
-   xCurr = XYWnd.xCur
-   yCurr = XYWnd.yCur
-   CurXPos = XYWnd.xPos
-   CurYPos = XYWnd.yPos
+   
+   xy_window = XYWnd(g_pXYWnd)
+   
+   xCurr = xy_window.xCur
+   yCurr = xy_window.yCur
+   CurXPos = xy_window.xPos
+   CurYPos = xy_window.yPos
    #buffering
    pXYStringBuffer = [2048]
    
-   bXYDragged = XYWnd.bDragged = True or False
+   xyBrush = Brush()
    
-   XYWnd.mWidth = gp.w
-   XYWnd.mHeight = gp.h
-   XYWnd.mRows and XYWnd.mColumns == gp.ratio
+   """push the matrix to the view"""
+   qesPushMatrix()
    
-   set().add(XYWnd.viewtype)
-   XYWnd.viewtype == gp.PLANE_X and gp.PLANE_Y
+   bXYDragged = xy_window.bDragged = True or False
    
-   XYWnd.XYSetWnd(g_pXYWnd)
+   xy_window.mWidth = xy_floor(xy_window)
+   xy_window.mHeight = xy_celi(xy_window)
+   xy_window.mRows and xy_window.mColumns == g_qesglobals.d_globals_grid_size
+   xy_window.viewtype == gp.PLANE_X and gp.PLANE_Y
+      
+   xy_window.xyvec3_t == [0.0, 0.0, 0.0]
    
-   XYWnd.xyvec3_t == [0.0, 0.0, 0.0]
-   ##XYWnd.mXYMatrix == 16##uncrustify later
+   """push viewtype"""
+   
+   xy_viewtype = View(xy_window)
+   
+   xy_viewtype.pushViewAxisType(xy_window.viewtype)
    
    ##wrestled with this xy_icon rendering issues for about a solid 2 hours, praise the Lord I figured out
    #note : have to call the <master=> func or else image wont bind to grid view
-   xy_icon = PhotoImage(master= g_pXYWnd)
-   g_pXYWnd.create_image(345, 165, image= xy_icon)
+   xy_icon = PhotoImage(master= xy_window)
+   xy_window.create_image(345, 165, image= xy_icon)
    
-   g_pXYWnd.xy_icon = xy_icon
+   xy_window.xy_icon = xy_icon
+   
+   xy_celi(g_pXYWnd= xy_window)
+   xy_floor(g_pXYWnd= xy_window)
+   xy_scale(g_pXYWnd= xy_window)
+   
+   #expirementing
+   #xy_window.coords()
+   CurXPos = xy_window.canvasx(0)
+   CurYPos = xy_window.canvasy(0)
+   
+   currX1 = xy_window.canvasx(xy_window.winfo_x())
+   currY1 = xy_window.canvasy(xy_window.winfo_y())
    
    #call dimension print
    XYDimensionsPrint()
    
-   Global.GlobalOutputStream('XYPrint(()->g_pXYWnd)::Successfull')
+   Global.GlobalOutputStream('XYPrint(()->g_pXYWnd)::Running')
  
 XYPrint()
+
+"""
+    ==========================================
+                   XZPrint()
+    ==========================================
+"""
 
 #============================
 #   XZ Print()
 def XZPrint():
     
-    xCurr = XZWnd.xCur
-    yCurr = XZWnd.yCur
-    CurXPos = XZWnd.xPos
-    CurYPos = XZWnd.yPos
+    xz_window = XZWnd(g_pXZWnd)
+    
+    xCurr = xz_window.xCur
+    yCurr = xz_window.yCur
+    CurXPos = xz_window.xPos
+    CurYPos = xz_window.yPos
    #buffering
     pXYBuff = str = [2048]
+    
+    """push the matrix to the view"""
+    qesPushMatrix()
    
-    bXZDragged = XZWnd.bDragged = True or False
+    bXZDragged = xz_window.bDragged = True or False
    
-    XZWnd.mWidth = gp.w
-    XZWnd.mHeight = gp.h
-    XZWnd.mRows and XZWnd.mColumns == gp.ratio
+    xz_window.mWidth = xy_floor(xz_window) or g_qesglobals.d_globals_floor
+    xz_window.mHeight = xy_celi(xz_window) or g_qesglobals.d_globals_celi
+    xz_window.mRows and xz_window.mColumns == g_qesglobals.d_globals_grid_size
    
-    set().add(XZWnd.viewtype)
-    XZWnd.viewtype == gp.PLANE_X and gp.PLANE_Z
-   
-    XZWnd.XZSetWnd(g_pXZWnd)
+    xz_window.viewtype == gp.PLANE_X and gp.PLANE_Z
     
     #now call print dimensions function
     XZDimensionsPrint()
    
-    XZWnd.xzvec3_t == [0.0, 0.0, 0.0]
+    xy_celi(g_pXYWnd= xz_window)
+    xy_floor(g_pXYWnd= xz_window)
+    xy_scale(g_pXYWnd= xz_window)
+   
+    xz_window.xzvec3_t == [0.0, 0.0, 0.0]
+    
+    """push viewtype"""
+    
+    xz_view = View(xz_window)
+    
+    xz_view.pushViewAxisType(xz_window.viewtype)
     
     #****************************************************************************
-    xz_icon = PhotoImage(master= g_pXZWnd)
-    g_pXZWnd.create_image(345, 165, image= xz_icon)
+    xz_icon = PhotoImage(master= xz_window)
+    xz_window.create_image(345, 165, image= xz_icon)
     
-    g_pXZWnd.xz_icon = xz_icon
+    xz_window.xz_icon = xz_icon
     
-    Global.GlobalOutputStream('XZPrint(()->g_pXZWnd)::Successfull')
+    Global.GlobalOutputStream('XZPrint(()->g_pXZWnd)::Running')
    
 XZPrint()
 
+"""
+    ==========================================
+                   YZPrint()
+    ==========================================
+"""
 #============================
 #   YZ print() 
 def YZPrint():
     
-    xCurr = YZWnd.xCur
-    yCurr = YZWnd.yCur
-    CurXPos = YZWnd.xPos
-    CurYPos = YZWnd.yPos
+    yz_window = YZWnd(g_pYZWnd)
+    
+    xCurr = yz_window.xCur
+    yCurr = yz_window.yCur
+    CurXPos = yz_window.xPos
+    CurYPos = yz_window.yPos
    #buffering
     pXYBuff = str = [2048]
-   
-    bYZDragged = YZWnd.bDragged = True or False
-   
-    YZWnd.mWidth = gp.w
-    YZWnd.mHeight = gp.h
-    YZWnd.mRows and YZWnd.mColumns == gp.ratio
-   
-    set().add(YZWnd.viewtype)
-    YZWnd.viewtype == gp.PLANE_Y and gp.PLANE_Z
-   
-    YZWnd.YZSetWnd(g_pYZWnd)
-   
-    YZWnd.yzvec3_t == [0.0, 0.0, 0.0]
     
+    """push the matrix to the view"""
+    qesPushMatrix()
+    
+   
+    bYZDragged = yz_window.bDragged = True or False
+   
+    yz_window.mWidth = xy_floor(yz_window) or g_qesglobals.d_globals_floor
+    yz_window.mHeight = xy_celi(yz_window) or g_qesglobals.d_globals_celi
+    yz_window.mRows and yz_window.mColumns == g_qesglobals.d_globals_grid_size
+   
+    yz_window.viewtype == gp.PLANE_Y and gp.PLANE_Z
+   
+    yz_window.yzvec3_t == [0.0, 0.0, 0.0]
+    
+    """push viewtype"""
+    yz_view = View(yz_window)
+    yz_view.pushViewAxisType(yz_window.viewtype)
     
     #**********************************************************************
-    yz_icon = PhotoImage(master= g_pYZWnd)
-    g_pYZWnd.create_image(345, 165, image= yz_icon)
+    yz_icon = PhotoImage(master= yz_window)
+    yz_window.create_image(345, 165, image= yz_icon)
     
     #now call print dimensions function
     YZDimensionsPrint()
     
-    g_pYZWnd.yz_icon = yz_icon
+    yz_window.yz_icon = yz_icon
     
-    Global.GlobalOutputStream('YZPrint(()->g_pYZWnd)::Successfull')
+    xy_celi(g_pXYWnd= yz_window)
+    xy_floor(g_pXYWnd= yz_window)
+    xy_scale(g_pXYWnd= yz_window)
+    
+    Global.GlobalOutputStream('YZPrint(()->g_pYZWnd)::Running')
    
 YZPrint()
+
+def CameraWindowPrint():
+    Global.GlobalOutputStream('CameraWindowPrint(()->g_pCameraWnd)::Running')
+    
+    
+CameraWindowPrint()
 
 #windows icon
 #GuiTable.MainWindow.iconmask(bitmap= 'esmatic_icon.png')
@@ -473,7 +563,5 @@ YZPrint()
 #compiled but no face shows in the viewport
 #DummyFaceDraw()
 #hmm i'll do more work later, im in a rush
-
-
 
 g_pMainFrame.mainloop()

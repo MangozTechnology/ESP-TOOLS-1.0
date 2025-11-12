@@ -33,7 +33,7 @@ import texturewnd as texwnd
 class GuiTable():
     MainWindow = tk.Tk()
     
-    m_pXYWidget = tk.Canvas(MainWindow, relief= 'sunken', background= 'Snow', bd = 3, width= 730, height= 400)
+    m_pXYWidget = tk.Canvas(MainWindow, relief= 'sunken', background= 'Snow', bd = 3, width= 730, height= 400, scrollregion=(0, 0, 1000, 1000))
     m_pXZWidget = tk.Canvas(MainWindow, relief= 'sunken', background= 'Snow', bd = 3, width= 730, height= 400)
     m_pYZWidget = tk.Canvas(MainWindow, relief= 'sunken', background= 'Snow', bd = 3, width= 800, height = 400)
     m_pCamWidget = tk.Canvas(MainWindow, relief= 'sunken', bg= 'DarkGray', bd= 3, width= 800, height= 400)

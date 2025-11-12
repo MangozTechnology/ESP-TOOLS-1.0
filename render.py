@@ -9,18 +9,3 @@
 #   Use Of Code : This code is to write Software to control ESP32 MaxArm Robot, intended for, New Prairie High School
 #
 ####################################################################
-
-import brush
-import face
-import plane3
-
-class Map:
-    
-    Map_Name = str
-    Map_Path = str
-    
-    brushes = brush.Brush()
-    faces = face.Face()
-    planes = plane3.Plane3()
-    
-    

@@ -10,17 +10,11 @@
 #
 ####################################################################
 
-import brush
-import face
-import plane3
+import tkinter as viewwindow
 
-class Map:
+orthoview = viewwindow.Canvas
+
+class View(orthoview):
     
-    Map_Name = str
-    Map_Path = str
-    
-    brushes = brush.Brush()
-    faces = face.Face()
-    planes = plane3.Plane3()
-    
-    
+    def pushViewAxisType(_axis, _axi)->float:
+        return _axis
